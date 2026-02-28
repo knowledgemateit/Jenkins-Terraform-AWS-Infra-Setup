@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "key_name" {
   description = " SSH keys to connect to ec2 instance"
-  default     = "vpc"
+  default     = "rajavan"
 }
 
 variable "instance_type" {
@@ -43,3 +43,4 @@ variable "Private_Subnet_1" {
   description = "Private_Subnet_1"
   type        = string
 }
+
