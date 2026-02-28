@@ -2,6 +2,28 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform {
+  required_version = ">= 1.10.0"
+
+  backend "s3" {
+    bucket         = "revathahtestbucket " # Must be globally unique
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    
+    # Modern S3 Native Locking (Available in v1.10+)
+    # This replaces the need for a separate DynamoDB table.
+    use_lockfile   = true 
+  }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
 #Create a new EC2 launch configuration
 resource "aws_instance" "ec2_public" {
   ami                         = var.ami_id
@@ -41,5 +63,6 @@ resource "aws_instance" "ec2_private" {
 }
 ################################
  
+
 
 
